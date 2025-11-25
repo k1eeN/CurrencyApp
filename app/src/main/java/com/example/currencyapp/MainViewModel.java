@@ -8,18 +8,22 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import java.util.Collections;
+import java.util.Map;
+
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.functions.Action;
 import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.functions.Function;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MainViewModel extends AndroidViewModel {
 
     private static final String TAG = "CurrencyAppLog";
 
-    private final MutableLiveData<ConversionRates> currencies = new MutableLiveData<>();
+    private final MutableLiveData<Map<String, Double>> currencies = new MutableLiveData<>();
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
 
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -30,7 +34,7 @@ public class MainViewModel extends AndroidViewModel {
         super(application);
     }
 
-    public LiveData<ConversionRates> getCurrencies() {
+    public LiveData<Map<String, Double>> getCurrencies() {
         return currencies;
     }
 
@@ -58,10 +62,15 @@ public class MainViewModel extends AndroidViewModel {
                     public void run() throws Throwable {
                         isLoading.setValue(false);
                     }
-                }).subscribe(new Consumer<CurrencyResponse>() {
+                }).map(new Function<CurrencyResponse, Map<String, Double>>() {
                     @Override
-                    public void accept(CurrencyResponse currencyResponse) throws Throwable {
-                        currencies.setValue(currencyResponse.getConversionRates());
+                    public Map<String, Double> apply(CurrencyResponse currencyResponse) throws Throwable {
+                        return currencyResponse.conversionRates;
+                    }
+                }).subscribe(new Consumer<Map<String, Double>>() {
+                    @Override
+                    public void accept(Map<String, Double> conversionRates) throws Throwable {
+                        currencies.setValue(conversionRates);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

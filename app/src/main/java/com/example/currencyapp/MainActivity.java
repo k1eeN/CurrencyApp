@@ -13,6 +13,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.util.Map;
+
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -30,13 +32,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
-        viewModel.getCurrencies().observe(this, new Observer<ConversionRates>() {
-            @Override
-            public void onChanged(ConversionRates conversionRates) {
-                Log.d(TAG, conversionRates.toString());
-            }
-        });
-        viewModel.loadCurrency();
+        viewModel.getCurrencies().observe(this, new Observer<Map<String, Double>>() {
+                    @Override
+                    public void onChanged(Map<String, Double> conversionRates) {
+                        Log.d(TAG, conversionRates.toString());
+                    }
+                });
+                viewModel.loadCurrency();
 
         viewModel.getIsLoading().observe(this, new Observer<Boolean>() {
             @Override

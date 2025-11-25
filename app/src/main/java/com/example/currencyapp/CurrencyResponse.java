@@ -3,6 +3,8 @@ package com.example.currencyapp;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Map;
+
 public class CurrencyResponse {
 
     @SerializedName("base_code")
@@ -10,10 +12,9 @@ public class CurrencyResponse {
     private String baseCode;
 
     @SerializedName("conversion_rates")
-    @Expose
-    private ConversionRates conversionRates;
+    public Map<String, Double> conversionRates;
 
-    public CurrencyResponse(String baseCode, ConversionRates conversionRates) {
+    public CurrencyResponse(String baseCode, Map<String, Double> conversionRates) {
         this.baseCode = baseCode;
         this.conversionRates = conversionRates;
     }
@@ -26,11 +27,11 @@ public class CurrencyResponse {
         this.baseCode = baseCode;
     }
 
-    public ConversionRates getConversionRates() {
+    public Map<String, Double> getConversionRates() {
         return conversionRates;
     }
 
-    public void setConversionRates(ConversionRates conversionRates) {
+    public void setConversionRates(Map<String, Double> conversionRates) {
         this.conversionRates = conversionRates;
     }
 
