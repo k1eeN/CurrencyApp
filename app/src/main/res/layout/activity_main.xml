@@ -11,12 +11,16 @@
 
     <Spinner
         android:id="@+id/spinnerCurrencySelection"
+        style="@android:style/Widget.DeviceDefault.Light.Spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/elements"
-        android:padding="18dp"
         android:layout_margin="8dp"
+        android:background="@color/elements"
         android:entries="@array/base_currency"
+        android:padding="18dp"
+        android:spinnerMode="dialog"
+        android:textAlignment="center"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
