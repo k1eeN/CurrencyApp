@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">CurrencyApp</string>
+    <string name="popular">Популярное</string>
+    <string name="favourites">Избранное</string>
+
+    <string-array name="base_currency" >
+        <item >USD - Доллар Соединенных Штатов</item>
+        <item >EUR - Евро</item>
+        <item >RUB - Российский рубль</item>
+        <item >CNY - Китайский юань</item>
+        <item >JPY - Японская иена</item>
+        <item >ILS - Израильский новый шекель</item>
+        <item >KZT - Казахстанский тенге</item>
+        <item >AED - Дирхам ОАЭ</item>
+        <item >BYN - Белорусский рубль</item>
+        <item >KRW - Южнокорейский вон</item>
+    </string-array>
 </resources>
