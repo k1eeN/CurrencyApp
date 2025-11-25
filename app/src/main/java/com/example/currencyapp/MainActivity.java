@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -15,7 +19,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -26,27 +32,45 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "CurrencyAppLog";
 
+    private Spinner spinnerCurrencySelection;
+    private RecyclerView recyclerViewMain;
+    private RecyclerView recyclerViewFavourite;
+    private ProgressBar progressBarLoading;
+    private TextView textViewPopular;
+    private TextView textViewFavourites;
+
+    private CurrencyAdapter currencyAdapter;
+
     private MainViewModel viewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        initViews();
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
-        viewModel.getCurrencies().observe(this, new Observer<Map<String, Double>>() {
-                    @Override
-                    public void onChanged(Map<String, Double> conversionRates) {
-                        Log.d(TAG, conversionRates.toString());
-                    }
-                });
-                viewModel.loadCurrency();
+        currencyAdapter = new CurrencyAdapter();
+        recyclerViewMain.setAdapter(currencyAdapter);
+
+        viewModel.getCurrencies().observe(this, new Observer<List<CurrencyRatesModel>>() {
+            @Override
+            public void onChanged(List<CurrencyRatesModel> currencyRatesModels) {
+                currencyAdapter.setCurrencies(currencyRatesModels);
+            }
+        });
+        viewModel.loadCurrency();
 
         viewModel.getIsLoading().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean isLoading) {
-                //create progressBar
+                if (isLoading) {
+                    progressBarLoading.setVisibility(View.VISIBLE);
+                } else {
+                    progressBarLoading.setVisibility(View.GONE);
+                }
             }
         });
 
@@ -55,6 +79,15 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    private void initViews() {
+        spinnerCurrencySelection = findViewById(R.id.spinnerCurrencySelection);
+        recyclerViewMain = findViewById(R.id.recyclerViewMain);
+        recyclerViewFavourite = findViewById(R.id.recyclerViewFavourite);
+        progressBarLoading = findViewById(R.id.progressBarLoading);
+        textViewPopular = findViewById(R.id.textViewPopular);
+        textViewFavourites = findViewById(R.id.textViewFavourites);
     }
 
     @Override

@@ -47,6 +47,17 @@
         app:layout_constraintTop_toBottomOf="@id/spinnerCurrencySelection"
         tools:listitem="@layout/currency_item" />
 
+    <ProgressBar
+        android:id="@+id/progressBarLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/textViewFavourites"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerCurrencySelection"
+        tools:visibility="visible" />
+
     <TextView
         android:id="@+id/textViewPopular"
         android:layout_width="0dp"
