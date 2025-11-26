@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
     private Spinner spinnerCurrencySelection;
     private RecyclerView recyclerViewMain;
-    private RecyclerView recyclerViewFavourite;
     private ProgressBar progressBarLoading;
     private TextView textViewPopular;
     private TextView textViewFavourites;
@@ -74,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -135,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
     private void initViews() {
         spinnerCurrencySelection = findViewById(R.id.spinnerCurrencySelection);
         recyclerViewMain = findViewById(R.id.recyclerViewMain);
-        recyclerViewFavourite = findViewById(R.id.recyclerViewFavourite);
         progressBarLoading = findViewById(R.id.progressBarLoading);
         textViewPopular = findViewById(R.id.textViewPopular);
         textViewFavourites = findViewById(R.id.textViewFavourites);

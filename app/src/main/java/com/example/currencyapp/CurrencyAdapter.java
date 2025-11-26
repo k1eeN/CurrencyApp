@@ -3,13 +3,13 @@ package com.example.currencyapp;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -88,10 +88,12 @@ public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.Curren
     static class CurrencyViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView textViewCurrency;
+        private final ImageView imageViewStar;
 
         public CurrencyViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewCurrency = itemView.findViewById(R.id.textViewCurrency);
+            imageViewStar = itemView.findViewById(R.id.imageViewStar);
         }
     }
 }

@@ -7,6 +7,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.rxjava3.core.Completable;
@@ -15,10 +16,13 @@ import io.reactivex.rxjava3.core.Completable;
 public interface CurrencyDao {
 
     @Query("SELECT * FROM currency_rates")
-    LiveData<CurrencyRateEntity> getAllFavouriteCurrencies();
+    LiveData<List<CurrencyRateEntity>> getAllFavouriteCurrencies();
+
+//    @Query("SELECT * FROM currency_rates WHERE code = :currencyCode")
+//    LiveData<CurrencyRateEntity> getFavouriteCurrencies(String currencyCode);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    Completable insertCurrency(CurrencyResponse currencyResponse);
+    Completable insertCurrency(CurrencyRateEntity currencyRateEntity);
 
     @Query("DELETE FROM currency_rates WHERE code = :currencyCode")
     Completable removeCurrency(String currencyCode);

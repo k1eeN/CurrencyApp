@@ -32,6 +32,8 @@ public class MainViewModel extends AndroidViewModel {
 
     private String baseCurrency;
 
+    private final CurrencyDao currencyDao;
+
 
     public void setBaseCurrency(String baseCurrency) {
         this.baseCurrency = baseCurrency;
@@ -39,6 +41,7 @@ public class MainViewModel extends AndroidViewModel {
 
     public MainViewModel(@NonNull Application application) {
         super(application);
+        currencyDao = CurrencyDatabase.getInstance(application).currencyDao();
     }
 
     public LiveData<List<CurrencyRatesModel>> getCurrencies() {
@@ -93,6 +96,24 @@ public class MainViewModel extends AndroidViewModel {
                     }
                 });
         compositeDisposable.add(disposable);
+    }
+
+    public void insertCurrencies(CurrencyRateEntity currencyRateEntity) {
+        Disposable disposable = currencyDao.insertCurrency(currencyRateEntity)
+                .subscribeOn(Schedulers.io())
+                .subscribe();
+        compositeDisposable.add(disposable);
+    }
+
+    public void removeCurrencies(String currencyCode) {
+        Disposable disposable = currencyDao.removeCurrency(currencyCode)
+                .subscribeOn(Schedulers.io())
+                .subscribe();
+        compositeDisposable.add(disposable);
+    }
+
+    public LiveData<List<CurrencyRateEntity>> getAllFavouriteCurrencies() {
+        return currencyDao.getAllFavouriteCurrencies();
     }
 
 
