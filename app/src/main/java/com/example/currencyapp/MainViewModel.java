@@ -30,7 +30,12 @@ public class MainViewModel extends AndroidViewModel {
 
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-    private String baseCurrency = "USD";
+    private String baseCurrency;
+
+
+    public void setBaseCurrency(String baseCurrency) {
+        this.baseCurrency = baseCurrency;
+    }
 
     public MainViewModel(@NonNull Application application) {
         super(application);

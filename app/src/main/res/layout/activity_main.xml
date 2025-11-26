@@ -11,7 +11,6 @@
 
     <Spinner
         android:id="@+id/spinnerCurrencySelection"
-        style="@android:style/Widget.DeviceDefault.Light.Spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -41,6 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/textViewFavourites"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

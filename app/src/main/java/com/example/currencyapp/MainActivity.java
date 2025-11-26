@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 currencyAdapter.setCurrencies(currencyRatesModels);
             }
         });
-        viewModel.loadCurrency();
+        setupSpinnerListener();
 
         viewModel.getIsLoading().observe(this, new Observer<Boolean>() {
             @Override
@@ -79,6 +80,55 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    private void setupSpinnerListener() {
+        spinnerCurrencySelection.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                sortingByCurrency(position);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
+
+    private void sortingByCurrency(int position) {
+        String sorted;
+        switch (position) {
+            case 1 :
+                sorted = "EUR";
+                break;
+            case 2 :
+                sorted = "RUB";
+                break;
+            case 3 :
+                sorted = "CNY";
+                break;
+            case 4 :
+                sorted = "JPY";
+                break;
+            case 5 :
+                sorted = "ILS";
+                break;
+            case 6 :
+                sorted = "KZT";
+                break;
+            case 7 :
+                sorted = "AED";
+                break;
+            case 8 :
+                sorted = "BYN";
+                break;
+            case 9 :
+                sorted = "KRW";
+                break;
+            default:
+                sorted = "USD";
+        }
+        viewModel.setBaseCurrency(sorted);
+        viewModel.loadCurrency();
     }
 
     private void initViews() {
