@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 sortingByCurrency(position);
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -97,31 +98,31 @@ public class MainActivity extends AppCompatActivity {
     private void sortingByCurrency(int position) {
         String sorted;
         switch (position) {
-            case 1 :
+            case 1:
                 sorted = "EUR";
                 break;
-            case 2 :
+            case 2:
                 sorted = "RUB";
                 break;
-            case 3 :
+            case 3:
                 sorted = "CNY";
                 break;
-            case 4 :
+            case 4:
                 sorted = "JPY";
                 break;
-            case 5 :
+            case 5:
                 sorted = "ILS";
                 break;
-            case 6 :
+            case 6:
                 sorted = "KZT";
                 break;
-            case 7 :
+            case 7:
                 sorted = "AED";
                 break;
-            case 8 :
+            case 8:
                 sorted = "BYN";
                 break;
-            case 9 :
+            case 9:
                 sorted = "KRW";
                 break;
             default:
@@ -148,6 +149,21 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.menuSortCodeAsc) {
+            currencyAdapter.sortByCodeAsc();
+            return true;
+        } else if (id == R.id.menuSortCodeDes) {
+            currencyAdapter.sortByCodeDes();
+            return true;
+        } else if (id == R.id.menuSortRateAsc) {
+            currencyAdapter.sortByRateAsc();
+            return true;
+        } else if (id == R.id.menuSortRateDes) {
+            currencyAdapter.sortByRateDes();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 }

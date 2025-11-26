@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/menuSortAlphabeticallyAsc"
+        android:id="@+id/menuSortCodeAsc"
         android:title="⇵ По Алфавиту ↑" />
     <item
-        android:id="@+id/menuSortAlphabeticallyDes"
+        android:id="@+id/menuSortCodeDes"
         android:title="⇵ По Алфавиту ↓" />
     <item
-        android:id="@+id/menuSortValueAsc"
+        android:id="@+id/menuSortRateAsc"
         android:title="⇵ По значению ↑" />
     <item
-        android:id="@+id/menuSortValueDes"
+        android:id="@+id/menuSortRateDes"
         android:title="⇵ По значению ↓" />
 </menu>

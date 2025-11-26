@@ -9,6 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.CurrencyViewHolder> {
@@ -17,6 +20,46 @@ public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.Curren
 
     public void setCurrencies(List<CurrencyRatesModel> currencies) {
         this.currencies = currencies;
+        notifyDataSetChanged();
+    }
+
+    public void sortByCodeAsc() {
+        Collections.sort(currencies, new Comparator<CurrencyRatesModel>() {
+            @Override
+            public int compare(CurrencyRatesModel o1, CurrencyRatesModel o2) {
+                return o1.code.compareToIgnoreCase(o2.code);
+            }
+        });
+        notifyDataSetChanged();
+    }
+
+    public void sortByCodeDes() {
+        Collections.sort(currencies, new Comparator<CurrencyRatesModel>() {
+            @Override
+            public int compare(CurrencyRatesModel o1, CurrencyRatesModel o2) {
+                return o2.code.compareToIgnoreCase(o1.code);
+            }
+        });
+        notifyDataSetChanged();
+    }
+
+    public void sortByRateAsc() {
+        Collections.sort(currencies, new Comparator<CurrencyRatesModel>() {
+            @Override
+            public int compare(CurrencyRatesModel o1, CurrencyRatesModel o2) {
+                return Double.compare(o1.rate, o2.rate);
+            }
+        });
+        notifyDataSetChanged();
+    }
+
+    public void sortByRateDes() {
+        Collections.sort(currencies, new Comparator<CurrencyRatesModel>() {
+            @Override
+            public int compare(CurrencyRatesModel o1, CurrencyRatesModel o2) {
+                return Double.compare(o2.rate, o1.rate);
+            }
+        });
         notifyDataSetChanged();
     }
 

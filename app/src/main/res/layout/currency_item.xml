@@ -30,7 +30,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:contentDescription="@null"
-            tools:src="@android:drawable/btn_star_big_on" />
+            android:background="@drawable/star_selector" />
 
 
     </LinearLayout>
