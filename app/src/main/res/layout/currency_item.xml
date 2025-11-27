@@ -30,7 +30,9 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:contentDescription="@null"
-            android:background="@drawable/star_selector" />
+            android:src="@drawable/star_selector"
+            android:clickable="true"
+            android:focusable="true"/>
 
 
     </LinearLayout>

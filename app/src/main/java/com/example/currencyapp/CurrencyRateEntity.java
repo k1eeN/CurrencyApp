@@ -13,4 +13,5 @@ public class CurrencyRateEntity {
     public String code;
 
     public  double rate;
+
 }
