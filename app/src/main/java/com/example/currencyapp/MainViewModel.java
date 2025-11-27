@@ -27,6 +27,8 @@ public class MainViewModel extends AndroidViewModel {
     private final MutableLiveData<List<CurrencyRatesModel>> currencies = new MutableLiveData<>();
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
 
+    private final LiveData<List<CurrencyRateEntity>> favouriteCurrencies;
+
 
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
@@ -42,6 +44,7 @@ public class MainViewModel extends AndroidViewModel {
     public MainViewModel(@NonNull Application application) {
         super(application);
         currencyDao = CurrencyDatabase.getInstance(application).currencyDao();
+        favouriteCurrencies = currencyDao.getAllFavouriteCurrencies();
     }
 
     public LiveData<List<CurrencyRatesModel>> getCurrencies() {
@@ -113,7 +116,7 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<CurrencyRateEntity>> getAllFavouriteCurrencies() {
-        return currencyDao.getAllFavouriteCurrencies();
+        return favouriteCurrencies;
     }
 
 
