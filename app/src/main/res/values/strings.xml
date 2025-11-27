@@ -2,6 +2,10 @@
     <string name="app_name">CurrencyApp</string>
     <string name="popular">Популярное</string>
     <string name="favourites">Избранное</string>
+    <string name="code_asc">⇵ По Алфавиту ↑</string>
+    <string name="code_des">⇵ По Алфавиту ↓</string>
+    <string name="rate_asc">⇵ По значению ↑</string>
+    <string name="rate_des">⇵ По значению ↓</string>
 
     <string-array name="base_currency" >
         <item >USD - Доллар Соединенных Штатов</item>

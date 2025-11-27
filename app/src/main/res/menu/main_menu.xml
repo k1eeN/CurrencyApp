@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menuSortCodeAsc"
-        android:title="⇵ По Алфавиту ↑" />
+        android:title="@string/code_asc" />
     <item
         android:id="@+id/menuSortCodeDes"
-        android:title="⇵ По Алфавиту ↓" />
+        android:title="@string/code_des" />
     <item
         android:id="@+id/menuSortRateAsc"
-        android:title="⇵ По значению ↑" />
+        android:title="@string/rate_asc" />
     <item
         android:id="@+id/menuSortRateDes"
-        android:title="⇵ По значению ↓" />
+        android:title="@string/rate_des" />
 </menu>

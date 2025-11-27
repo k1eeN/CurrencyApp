@@ -18,9 +18,6 @@ public interface CurrencyDao {
     @Query("SELECT * FROM currency_rates")
     LiveData<List<CurrencyRateEntity>> getAllFavouriteCurrencies();
 
-//    @Query("SELECT * FROM currency_rates WHERE code = :currencyCode")
-//    LiveData<CurrencyRateEntity> getFavouriteCurrencies(String currencyCode);
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insertCurrency(CurrencyRateEntity currencyRateEntity);
 
