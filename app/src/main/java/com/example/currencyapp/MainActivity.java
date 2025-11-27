@@ -29,8 +29,6 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "CurrencyAppLog";
-
     private Spinner spinnerCurrencySelection;
     private RecyclerView recyclerViewMain;
     private ProgressBar progressBarLoading;
