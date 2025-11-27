@@ -22,12 +22,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.functions.Consumer;
-import io.reactivex.rxjava3.schedulers.Schedulers;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,6 +41,11 @@ public class MainActivity extends AppCompatActivity {
 
     private MainViewModel viewModel;
 
+    private boolean showingFavourites = false;
+
+    private List<CurrencyRatesModel> popularList;
+    private List<CurrencyRateEntity> favouriteEntities;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,13 +58,40 @@ public class MainActivity extends AppCompatActivity {
         currencyAdapter = new CurrencyAdapter();
         recyclerViewMain.setAdapter(currencyAdapter);
 
+        currencyAdapter.setOnStarClickListener(new CurrencyAdapter.OnStarClickListener() {
+            @Override
+            public void onStarClick(CurrencyRatesModel model, boolean willBeFavourite) {
+                if (willBeFavourite) {
+                    CurrencyRateEntity entity = new CurrencyRateEntity();
+                    entity.code = model.code;
+                    entity.rate = model.rate;
+                    viewModel.insertCurrencies(entity);
+                } else {
+                    viewModel.removeCurrencies(model.code);
+                }
+            }
+        });
+
+
         viewModel.getCurrencies().observe(this, new Observer<List<CurrencyRatesModel>>() {
             @Override
             public void onChanged(List<CurrencyRatesModel> currencyRatesModels) {
-                currencyAdapter.setCurrencies(currencyRatesModels);
+                popularList = currencyRatesModels;
+                updateList();
             }
         });
+
+        viewModel.getAllFavouriteCurrencies().observe(this, new Observer<List<CurrencyRateEntity>>() {
+            @Override
+            public void onChanged(List<CurrencyRateEntity> currencyRateEntities) {
+                favouriteEntities = currencyRateEntities;
+                currencyAdapter.setFavouriteCodes(favouriteEntities);
+                updateList();
+            }
+        });
+
         setupSpinnerListener();
+        setupTabs();
 
         viewModel.getIsLoading().observe(this, new Observer<Boolean>() {
             @Override
@@ -130,6 +160,68 @@ public class MainActivity extends AppCompatActivity {
         }
         viewModel.setBaseCurrency(sorted);
         viewModel.loadCurrency();
+    }
+
+    private void setupTabs() {
+        textViewPopular.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showingFavourites = false;
+                updateTabsUI();
+                updateList();
+            }
+        });
+
+        textViewFavourites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showingFavourites = true;
+                updateTabsUI();
+                updateList();
+            }
+        });
+
+        showingFavourites = false;
+        updateTabsUI();
+    }
+
+    private void updateTabsUI() {
+        if (showingFavourites) {
+            textViewFavourites.setSelected(true);
+            textViewPopular.setSelected(false);
+        } else {
+            textViewPopular.setSelected(true);
+            textViewFavourites.setSelected(false);
+        }
+    }
+
+    private void updateList() {
+        if (popularList == null) {
+            return;
+        }
+
+        if (!showingFavourites) {
+            currencyAdapter.setCurrencies(popularList);
+        } else {
+            if (favouriteEntities == null || favouriteEntities.isEmpty()) {
+                currencyAdapter.setCurrencies(new ArrayList<CurrencyRatesModel>());
+                return;
+            }
+
+            Set<String> favCodes = new HashSet<>();
+            for (CurrencyRateEntity entity : favouriteEntities) {
+                favCodes.add(entity.code);
+            }
+
+            List<CurrencyRatesModel> favouriteList = new ArrayList<>();
+            for (CurrencyRatesModel model : popularList) {
+                if (favCodes.contains(model.code)) {
+                    favouriteList.add(model);
+                }
+            }
+
+            currencyAdapter.setCurrencies(favouriteList);
+        }
     }
 
     private void initViews() {
